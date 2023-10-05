@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "tgtranslatebot"
+version = "0.1.0"
+description = ""
+authors = ["puplishe <dimaivanoov1991@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+deepl = "^1.15.0"
+python-telegram-bot = "^20.6"
+requests = "^2.31.0"
+bs4 = "^0.0.1"
+httpx = "^0.25.0"
+httpx-html = "^0.11.0.dev0"
+datetime = "^5.2"
+pytest = "^7.4.2"
+python-decouple = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
