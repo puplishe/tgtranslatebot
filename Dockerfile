@@ -7,7 +7,7 @@ WORKDIR /tgtranslatebot
 COPY ./ /tgtranslatebot/
 COPY pyproject.toml /tgtranslatebot/
 
-ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
+ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 RUN apt-get update \
     && apt-get -y install libpq-dev python-dev-is-python3 gcc
 

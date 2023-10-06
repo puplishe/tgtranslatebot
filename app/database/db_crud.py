@@ -11,7 +11,7 @@ class Db_Crud():
         """
         conn = sqlite3.connect(self.db)
         return conn
-    
+
     def create_user_histroy(self, user_id, original_text, translated, timestamp) -> None:
         """
         Создает историю запросов перевода
@@ -22,11 +22,9 @@ class Db_Crud():
             INSERT INTO translation_history (user_id, original_text, translated_text, timestamp)
             VALUES (?, ?, ?, ?)
         ''', (user_id, original_text, translated, timestamp))
-        
+
         conn.commit()
         conn.close()
-
-
 
     def get_translation_history(self, user_id) -> list:
         """
@@ -49,9 +47,9 @@ class Db_Crud():
             ''', (user_id,))
 
         history = cursor.fetchall()
-        
+
         conn.close()
-        
+
         return history
 
     def get_user_id(self) -> list:
@@ -68,5 +66,3 @@ class Db_Crud():
         users_ids = cursor.fetchall()
         conn.close()
         return users_ids
-
-

@@ -1,11 +1,14 @@
 from decouple import config
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ConversationHandler
-from .tgbot.bot import Bot
+from telegram.ext import (
+    Application,
+    CallbackQueryHandler,
+    CommandHandler,
+    MessageHandler,
+    filters,
+)
+
 from .database.db_conn import create_db
-
-
-
-
+from .tgbot.bot import Bot
 
 
 def main() -> None:
@@ -19,6 +22,7 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, bot.message))
     application.add_handler(CallbackQueryHandler(bot.callback_handler))
     application.run_polling()
+
 
 if __name__ == '__main__':
     main()

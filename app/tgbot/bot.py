@@ -1,9 +1,10 @@
 import datetime
+
+from telegram import ForceReply, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ContextTypes
-from telegram import ForceReply, Update
-from .deepl_api import translate
+
 from ..database.db_crud import Db_Crud
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from .deepl_api import translate
 
 
 class Bot():
@@ -11,35 +12,29 @@ class Bot():
         self.selected_language = None
         self.last_original_text = None
 
-
     async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         """
         Функция приветствия юзера после старта
         """
-        user = update.effective_user
         await update.message.reply_html('hello please write what you need to translate', reply_markup=ForceReply(selective=True))
 
-    
-    async def choose_language(self, update:Update, context: ContextTypes.DEFAULT_TYPE):
+    async def choose_language(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = [
-            [InlineKeyboardButton("Русский", callback_data="RU")],
+            [InlineKeyboardButton('Русский', callback_data='RU')],
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
-        await update.message.reply_text("Выберите язык:", reply_markup=reply_markup)
+        await update.message.reply_text('Выберите язык:', reply_markup=reply_markup)
 
-
-
-    async def message(self, update:Update, context: ContextTypes.DEFAULT_TYPE) -> ForceReply:
+    async def message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> ForceReply:
         """
-        Обработчик запроса и сохранение запроса в бд 
-        """        
-        user_id = update.effective_user.id
+        Обработчик запроса и сохранение запроса в бд
+        """
         original_text = update.message.text
         self.last_original_text = original_text
         await self.choose_language(update, context)
 
-    async def callback_handler(self, update:Update, context: ContextTypes.DEFAULT_TYPE):
+    async def callback_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """
         Обработка кнопки и ответ переведенного текста пользователю
         """
@@ -52,11 +47,11 @@ class Bot():
         Db_Crud().create_user_histroy(user_id, self.last_original_text, translated, timestamp)
         await query.answer(f'Перевод на {self.selected_language} в процессе!')
         await query.edit_message_text(f'Ваш перевод: \n{translated}')
-    
-    async def history_review(self, update:Update, context: ContextTypes.DEFAULT_TYPE):
+
+    async def history_review(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_id = update.effective_user.id
         history = Db_Crud().get_translation_history(user_id)
         await update.message.reply_text(f'Ваша история переводов: \n{history}')
-    
-    async def help_command(self, update:Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text(f'/history - показывает историю ваших переводов')
+
+    async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text('/history - показывает историю ваших переводов')

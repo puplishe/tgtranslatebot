@@ -1,9 +1,9 @@
 import sqlite3
 
+
 def create_db() -> None:
     conn = sqlite3.connect('translation_history.db')
     cursor = conn.cursor()
-
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS translation_history (
@@ -15,7 +15,5 @@ def create_db() -> None:
         )
     ''')
 
-
     conn.commit()
     conn.close()
-
