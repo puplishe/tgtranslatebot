@@ -19,6 +19,3 @@ def create_db() -> None:
     conn.commit()
     conn.close()
 
-def db_conn():
-    conn = sqlite3.connect('translation_history')
-    return conn

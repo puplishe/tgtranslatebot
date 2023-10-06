@@ -1,5 +1,5 @@
 import sqlite3
-from .db_conn import db_conn
+
 
 class Db_Crud():
     def __init__(self) -> None:
