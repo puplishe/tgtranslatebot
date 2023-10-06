@@ -9,7 +9,7 @@ async def translate(text: str, language: str) -> str:
     try:
         translator = deepl.Translator(token)
         result = await translator.translate_text(text=f'{text}',target_lang=f'{language}')
-        return result
+        return result.text
     except:
         return 'This is mock translation'
     
