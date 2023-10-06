@@ -1,6 +1,6 @@
 from decouple import config
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ConversationHandler
-from .bot.bot import Bot
+from .tgbot.bot import Bot
 from .database.db_conn import create_db
 
 

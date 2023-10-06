@@ -2,14 +2,14 @@ import sqlite3
 
 
 class Db_Crud():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, db_name='translation_history.db') -> None:
+        self.db = db_name
 
     def db_conn(self):
         """
         Создает сессию бд
         """
-        conn = sqlite3.connect('translation_history.db')
+        conn = sqlite3.connect(self.db)
         return conn
     
     def create_user_histroy(self, user_id, original_text, translated, timestamp) -> None:
