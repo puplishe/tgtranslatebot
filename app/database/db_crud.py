@@ -42,7 +42,7 @@ class Db_Crud():
             ''')
         else:
             cursor.execute('''
-                SELECT id, user_id, original_text, translated_text, timestamp
+                SELECT user_id, original_text, translated_text, timestamp
                 FROM translation_history
                 WHERE user_id = ?
                 ORDER BY timestamp DESC
